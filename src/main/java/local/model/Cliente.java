@@ -1,12 +1,17 @@
 package local.model;
 
-public class Usuario {
+import local.exception.ClienteException;
+
+import javax.validation.constraints.Size;
+
+public class Cliente {
+
 
 	private String nome;
 	
-	public Usuario() {}
+	public Cliente() {}
 	
-	public Usuario(String nome) {
+	public Cliente(String nome) {
 		this.nome = nome;
 	}
 
@@ -15,7 +20,15 @@ public class Usuario {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if(nome==null){
+			throw new ClienteException("Nome não é um campo obrigatório");
+		}
+		if (nome.length()<=4 && nome.length()<55){
+			throw new ClienteException("O nome do cliente deve possuir entre 4 e 55 caracteres");
+		}
+		if(!nome.matches("[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃçÇ ]+")){
+			throw new ClienteException("Números e símbolos não são permitidos");
+		}
 	}
 
 	@Override
@@ -34,7 +47,7 @@ public class Usuario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Cliente other = (Cliente) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;

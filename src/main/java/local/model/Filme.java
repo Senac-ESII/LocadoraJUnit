@@ -2,6 +2,7 @@ package local.model;
 
 public class Filme {
 
+
     private String nome;
     private Integer estoque;
     private Double precoLocacao;

@@ -1,20 +1,26 @@
 package local.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Locacao {
 
-	private Usuario usuario;
-	private Filme filme;
+	private Cliente cliente;
+	private List<Filme> filmes;
 	private Date dataLocacao;
 	private Date dataRetorno;
 	private Double valor;
-	
-	public Usuario getUsuario() {
-		return usuario;
+
+	public Locacao(){
+		filmes = new ArrayList<>();
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	public Date getDataLocacao() {
 		return dataLocacao;
@@ -34,10 +40,10 @@ public class Locacao {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public Filme getFilme() {
-		return filme;
+	public List<Filme> getFilmes() {
+		return filmes;
 	}
-	public void setFilme(Filme filme) {
-		this.filme = filme;
+	public void addFilme(Filme filme){
+		filmes.add(filme);
 	}
 }

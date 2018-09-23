@@ -1,39 +1,44 @@
 package local.service;
 
 import static local.util.DataUtils.adicionarDias;
+
 import java.util.Date;
+import java.util.List;
+
 import local.model.Filme;
 import local.model.Locacao;
-import local.model.Usuario;
+import local.model.Cliente;
 import local.exception.FilmeSemEstoqueException;
 import local.exception.LocadoraException;
 
 public class LocacaoService {
-
-    public Locacao alugarFilme(Usuario usuario, Filme filme) throws FilmeSemEstoqueException, LocadoraException {
-        if (usuario == null) {
+//TODO atualizar para muitos filmes
+    public Locacao alugarFilme(Cliente cliente, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException {
+        if (cliente == null) {
             throw new LocadoraException("Impossivel locar sem um usuário");
         }
 
-        if (filme == null) {
+        if (filmes == null || filmes.isEmpty()) {
             throw new LocadoraException("Nenhum filme foi selecionado");
         }
 
-        if (filme.getEstoque() == 0) {
-            throw new FilmeSemEstoqueException("Filme sem estoque");
-        }
-
         Locacao locacao = new Locacao();
-        locacao.setFilme(filme);
-        locacao.setUsuario(usuario);
-        locacao.setDataLocacao(new Date());
-        locacao.setValor(filme.getPrecoLocacao());
+        locacao.setCliente(cliente);
 
-        //Entrega no dia seguinte
-        Date dataEntrega = new Date();
-        dataEntrega = adicionarDias(dataEntrega, 1);
-        locacao.setDataRetorno(dataEntrega);
+        for(Filme filme: filmes) {
+            if (filme.getEstoque() == 0) {
+                throw new FilmeSemEstoqueException("Filme sem estoque");
+            }
 
+            locacao.addFilme(filme);
+            locacao.setDataLocacao(new Date());
+            locacao.setValor(filme.getPrecoLocacao());
+
+            //Entrega no dia seguinte
+            Date dataEntrega = new Date();
+            dataEntrega = adicionarDias(dataEntrega, 1);
+            locacao.setDataRetorno(dataEntrega);
+        }
         //Salvando a locacao...	
         //TODO adicionar método para salvar
         return locacao;
