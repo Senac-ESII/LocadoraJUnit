@@ -1,14 +1,21 @@
 package local.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Locacao {
 
 	private Usuario usuario;
-	private Filme filme;
+	//TODO Modificar para array e criar o addFilme
+	private List<Filme> filmes;
 	private Date dataLocacao;
 	private Date dataRetorno;
 	private Double valor;
+
+	public Locacao(){
+		filmes = new ArrayList<>();
+	}
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -34,10 +41,13 @@ public class Locacao {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public Filme getFilme() {
-		return filme;
+	public List<Filme> getFilmes() {
+		return filmes;
 	}
-	public void setFilme(Filme filme) {
-		this.filme = filme;
+	public void setFilme(List<Filme> filme) {
+		this.filmes = filmes;
+	}
+	public void addFilme(Filme filme){
+		filmes.add(filme);
 	}
 }

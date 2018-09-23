@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 
 import static org.junit.Assert.*;
-
+//TODO atualizar testes para trabalhar com os multiplos filmes
 public class LocacaoServiceTest {
 
     @Test
