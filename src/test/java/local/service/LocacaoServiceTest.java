@@ -77,4 +77,8 @@ public class LocacaoServiceTest {
         //Validação
     }
 
+    @Test
+    public void verificaDataEntrega(){
+        //TODO: Deve entregar o filme sempre no dia posterior a retirada
+    }
 }
