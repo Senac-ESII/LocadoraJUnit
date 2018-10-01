@@ -4,10 +4,13 @@ import local.exception.FilmeSemEstoqueException;
 import local.exception.LocadoraException;
 import local.model.Filme;
 import local.model.Cliente;
+import local.model.Locacao;
+import local.util.DataUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -78,7 +81,16 @@ public class LocacaoServiceTest {
     }
 
     @Test
-    public void verificaDataEntrega(){
+    public void verificaDataEntrega() throws LocadoraException {
         //TODO: Deve entregar o filme sempre no dia posterior a retirada
+        LocacaoService ls = new LocacaoService();
+
+        Locacao locacao = ls.alugarFilme(cliente,Arrays.asList(filmes.get(0),filmes.get(1)));
+
+        Date data = locacao.getDataRetorno();
+
+        assertTrue(DataUtils.isMesmaData(data,DataUtils.obterDataComDiferencaDias(1)));
+
     }
+
 }
