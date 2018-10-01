@@ -2,7 +2,6 @@ package local.model;
 
 import local.exception.ClienteException;
 
-import javax.validation.constraints.Size;
 
 public class Cliente {
 
@@ -21,9 +20,33 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		if(nome==null){
-			throw new ClienteException("Nome não é um campo obrigatório");
+			throw new ClienteException("Nome é um campo obrigatório");
 		}
-		if (nome.length()<=4 && nome.length()<55){
+		if(!nome.isEmpty()) {
+			String partes[] = nome.split(" ");
+			if(partes.length <2) {
+				throw new ClienteException("Nome deve conter no mínimo um sobrenome");
+				
+			}
+		}
+		
+		if(!nome.isEmpty()) {
+			char inicio = nome.charAt(0);
+			char fim = nome.charAt(nome.length()-1);
+			if(inicio == ' ') {
+				throw new ClienteException("Nome não pode ter espaços no começo");
+			}
+			if(fim == ' ') {
+				throw new ClienteException("Nome não pode ter espaços no final");
+			}
+			
+		}
+		
+		
+		if(nome.isEmpty()) {
+			throw new ClienteException("O nome do cliente não pode ser vazio");
+ 		}
+		if (nome.length()<4 || nome.length()>55){
 			throw new ClienteException("O nome do cliente deve possuir entre 4 e 55 caracteres");
 		}
 		if(!nome.matches("[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃçÇ ]+")){

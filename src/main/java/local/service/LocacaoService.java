@@ -14,14 +14,18 @@ import local.exception.LocadoraException;
 public class LocacaoService {
 //TODO atualizar para muitos filmes
     public Locacao alugarFilme(Cliente cliente, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException {
-        if (cliente == null) {
-            throw new LocadoraException("Impossivel locar sem um usuário");
+    	if (cliente == null || cliente.getNome().isEmpty()) {
+            throw new LocadoraException("Impossivel locar sem um usuário ou com nome vazio");
         }
 
         if (filmes == null || filmes.isEmpty()) {
             throw new LocadoraException("Nenhum filme foi selecionado");
         }
-
+        
+        if(cliente.getNome().length() <4 || cliente.getNome().length() >55) {
+        	throw new LocadoraException("Nome do cliente deverá ter entre 4 e 55 caracteres");
+        }
+        
         Locacao locacao = new Locacao();
         locacao.setCliente(cliente);
 
