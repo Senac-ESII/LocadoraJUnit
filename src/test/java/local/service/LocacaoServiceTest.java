@@ -6,17 +6,22 @@ import local.model.Filme;
 import local.model.Cliente;
 import local.model.Locacao;
 import local.util.DataUtils;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
+
 //TODO atualizar testes para trabalhar com os multiplos filmes
 public class LocacaoServiceTest {
 
@@ -24,7 +29,7 @@ public class LocacaoServiceTest {
     private Cliente cliente;
     public static Double VALOR_FILME = 4.00;
 
-    @Before
+    @BeforeEach
     public void setUp(){
         cliente = new Cliente("Angelo Gonçalves da Luz");
 
@@ -55,7 +60,7 @@ public class LocacaoServiceTest {
             ls.alugarFilme(cliente, null);
             fail("Locação realizada com usuário null");
         }catch (LocadoraException | FilmeSemEstoqueException ex){
-            assertEquals("Impossível locar sem um usuário",ex.getMessage());
+            //assertEquals("Impossível locar sem um usuário",ex.getMessage());
             assertThat(ex.getMessage(),is(equalTo("Impossível locar sem um usuário")));
         }
     }
